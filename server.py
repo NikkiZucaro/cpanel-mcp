@@ -12,7 +12,6 @@ CPANEL_TOKEN = os.getenv("CPANEL_TOKEN")         # cPanel API token (recommended
 def auth_headers() -> dict:
     return {"Authorization": f"cpanel {CPANEL_USER}:{CPANEL_TOKEN}"}
 
-
 async def uapi(module: str, func: str, params: dict = None) -> dict:
     url = f"{CPANEL_HOST}/execute/{module}/{func}"
     async with httpx.AsyncClient(verify=False, timeout=30) as client:
@@ -121,4 +120,4 @@ async def list_files(path: str = "/") -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+        mcp.run(transport="streamable-http", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
