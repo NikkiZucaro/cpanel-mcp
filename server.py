@@ -194,12 +194,11 @@ async def upload_file_base64(path: str, content_base64: str) -> str:
 
 
 @mcp.tool()
-async def delete_file(path: str) -> str:
+async def delete_file(path: str) -> str:   
     """Delete a file under /public_html/content."""
     full_path = safe_content_path(path)
     await uapi("Fileman", "delete", {"path": full_path})
     return f"Deleted file: {full_path}"
-
 
 @mcp.tool()
 async def create_directory(path: str) -> str:
@@ -210,4 +209,4 @@ async def create_directory(path: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="sse")
+    mcp.run(transport="sse", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
